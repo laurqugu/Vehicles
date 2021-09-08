@@ -2,26 +2,23 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
-using Vehicules.API.Data;
 using Vehicules.API.Data.Entities;
 
 namespace Vehicules.API.Controllers
 {
-    public class VehiculeTypesController : Controller
+    public class DocumentTypesController : Controller
     {
         private readonly DataContext _context;
 
-        public VehiculeTypesController(DataContext context)
+        public DocumentTypesController(DataContext context)
         {
             _context = context;
         }
 
-
         public async Task<IActionResult> Index()
         {
-            return View(await _context.VehiculeTypes.ToListAsync());
+            return View(await _context.DocumentTypes.ToListAsync());
         }
-
 
         public IActionResult Create()
         {
@@ -30,13 +27,13 @@ namespace Vehicules.API.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(VehiculeType vehiculeType)
+        public async Task<IActionResult> Create(DocumentType documentType)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Add(vehiculeType);
+                    _context.Add(documentType);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -44,7 +41,7 @@ namespace Vehicules.API.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, "Ya existe este tipo de vehículo.");
+                        ModelState.AddModelError(string.Empty, "Ya existe este tipo de documento.");
                     }
                     else
                     {
@@ -56,7 +53,8 @@ namespace Vehicules.API.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
-            return View(vehiculeType);
+
+            return View(documentType);
         }
 
         public async Task<IActionResult> Edit(int? id)
@@ -66,20 +64,20 @@ namespace Vehicules.API.Controllers
                 return NotFound();
             }
 
-            VehiculeType vehiculeType = await _context.VehiculeTypes.FindAsync(id);
-            if (vehiculeType == null)
+            DocumentType documentType = await _context.DocumentTypes.FindAsync(id);
+            if (documentType == null)
             {
                 return NotFound();
             }
-            return View(vehiculeType);
-        }
 
+            return View(documentType);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, VehiculeType vehiculeType)
+        public async Task<IActionResult> Edit(int id, DocumentType documentType)
         {
-            if (id != vehiculeType.id)
+            if (id != documentType.Id)
             {
                 return NotFound();
             }
@@ -88,7 +86,7 @@ namespace Vehicules.API.Controllers
             {
                 try
                 {
-                    _context.Update(vehiculeType);
+                    _context.Update(documentType);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
@@ -96,7 +94,7 @@ namespace Vehicules.API.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, "Ya existe este tipo de vehículo.");
+                        ModelState.AddModelError(string.Empty, "Ya existe este tipo de documento.");
                     }
                     else
                     {
@@ -108,7 +106,7 @@ namespace Vehicules.API.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
-            return View(vehiculeType);
+            return View(documentType);
         }
 
         public async Task<IActionResult> Delete(int? id)
@@ -118,14 +116,14 @@ namespace Vehicules.API.Controllers
                 return NotFound();
             }
 
-            VehiculeType vehiculeType = await _context.VehiculeTypes
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (vehiculeType == null)
+            DocumentType documentType = await _context.DocumentTypes
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (documentType == null)
             {
                 return NotFound();
             }
 
-            _context.VehiculeTypes.Remove(vehiculeType);
+            _context.DocumentTypes.Remove(documentType);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
