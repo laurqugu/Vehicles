@@ -31,7 +31,7 @@ namespace Vehicules.API.Data
             await CheckUserAsync("1030", "Cristobal", "Velez", "cristobal@yopmail.com", "3220987654", "Calle 58 98 13", UserType.User);
         }
 
-        private async Task CheckUserAsync(string document, string firstName, string lastName, string email, string phoneNumber, string adddress, UserType userType)
+        private async Task CheckUserAsync(string document, string firstName, string lastName, string email, string phoneNumber, string address, UserType userType)
         {
             User user = await _userHelper.GetUserAsync(email);
 
@@ -39,7 +39,7 @@ namespace Vehicules.API.Data
             {
                 user = new User
                 {
-                    Address = adddress,
+                    Address = address,
                     Document = document,
                     DocumentType = _context.DocumentTypes.FirstOrDefault(x => x.Description == "Cédula de ciudadanía"),
                     Email = email,
