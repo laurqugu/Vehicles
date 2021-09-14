@@ -2,13 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 using Vehicules.Common.Enum;
 
 namespace Vehicules.API.Data.Entities
 {
-    public class User :IdentityUser
+    public class User : IdentityUser
     {
         [Display(Name = "Nombres")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
@@ -44,9 +42,11 @@ namespace Vehicules.API.Data.Entities
 
         [Display(Name = "Tipo de usuario")]
         public UserType UserType { get; set; }
-         
+
         [Display(Name = "Usuario")]
         public string FullName => $"{FirstName} {LastName}";
+
+        public ICollection<Vehicle> Vehicles { get; set; }
     }
 
 }
