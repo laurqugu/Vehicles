@@ -41,7 +41,9 @@ namespace Vehicules.API
             });
 
             services.AddTransient<SeedDb>();
-
+            services.AddScoped<IBlobHelper, BlobHelper>();
+            services.AddScoped<ICombosHelper, CombosHelper>();
+            services.AddScoped<IConverterHelper, ConverterHelper>();
             services.AddScoped<IUserHelper, UserHelper>(); 
         }
 

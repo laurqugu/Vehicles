@@ -81,7 +81,7 @@ namespace Vehicules.API.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, VehiculeType vehiculeType)
         {
-            if (id != vehiculeType.id)
+            if (id != vehiculeType.Id)
             {
                 return NotFound();
             }
@@ -121,7 +121,7 @@ namespace Vehicules.API.Controllers
             }
 
             VehiculeType vehiculeType = await _context.VehiculeTypes
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (vehiculeType == null)
             {
                 return NotFound();

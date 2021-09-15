@@ -5,7 +5,7 @@ namespace Vehicules.API.Data.Entities
 {
     public class VehiculeType
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Tipo de Vehículo")]
         [MaxLength(50, ErrorMessage = "El campo {0} no puede tener más de {1} carácteres.")]
