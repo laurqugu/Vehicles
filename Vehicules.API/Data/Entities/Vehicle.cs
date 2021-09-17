@@ -51,7 +51,6 @@ namespace Vehicules.API.Data.Entities
         [Display(Name = "# Fotos")]
         public int VehiclePhotosCount => VehiclePhotos == null ? 0 : VehiclePhotos.Count;
 
-        //TODO: Fix the correct Path
         public string ImageFullPath => VehiclePhotos == null || VehiclePhotos.Count == 0
             ? $"https://localhost:44334/images/no-image.png"
             : VehiclePhotos.FirstOrDefault().ImageFullPath;
