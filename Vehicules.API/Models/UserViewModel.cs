@@ -54,12 +54,14 @@ namespace Vehicules.API.Models
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public int DocumentTypeId { get; set; }
 
+        public IEnumerable<SelectListItem> DocumentTypes { get; set; }
+
         [Display(Name = "Foto")]
         public string ImageFullPath => ImageId == Guid.Empty
            ? $"https://localhost:44334/images/no-image.png"
            : $"https://vehicleslaurqugu.blob.core.windows.net/users/{ImageId}";
 
-        public IEnumerable<SelectListItem> DocumentTypes { get; set; }
+
 
     }
 }
