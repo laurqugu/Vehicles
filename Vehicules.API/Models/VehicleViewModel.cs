@@ -59,5 +59,6 @@ namespace Vehicules.API.Models
         [Display(Name = "Foto")]
         public IFormFile ImageFile { get; set; }
 
+        public ICollection<VehiclePhoto> VehiclePhotos { get; set; }
     }
 }
