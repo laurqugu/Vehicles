@@ -24,8 +24,10 @@ namespace Vehicules.API
         {
             services.AddControllersWithViews();
 
-            services.AddIdentity<User, IdentityRole>(x => 
+            services.AddIdentity<User, IdentityRole>(x =>
             {
+                x.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                x.SignIn.RequireConfirmedEmail = true;
                 x.User.RequireUniqueEmail = true;
                 x.Password.RequireDigit = false;
                 x.Password.RequiredUniqueChars = 0;
@@ -33,6 +35,7 @@ namespace Vehicules.API
                 x.Password.RequireNonAlphanumeric = false;
                 x.Password.RequireUppercase = false;
             })
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<DataContext>();
 
             services.ConfigureApplicationCookie(options => 
@@ -50,7 +53,8 @@ namespace Vehicules.API
             services.AddScoped<IBlobHelper, BlobHelper>();
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
-            services.AddScoped<IUserHelper, UserHelper>(); 
+            services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IMailHelper, MailHelper>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
